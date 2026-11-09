@@ -1,54 +1,425 @@
 @import "tailwindcss";
 
+@theme {
+  /* ── Core palette ── */
+  --color-primary: #0552AC;
+  --color-primary-dark: #001F54;
+  --color-primary-light: #E8F0FE;
+  --color-champagne: #D4AF37;
+  --color-champagne-light: #FDF7E7;
+  --color-champagne-border: #E5D08C;
+  --color-surface: #F8FAFD;
+  --color-surface-card: #FFFFFF;
+  --color-surface-ivory: #FCFDFE;
+  --color-text-main: #0D1829;
+  --color-text-muted: #4B5B76;
+  --color-border-soft: #E2E8F0;
+
+  /* ── Semantic status colors ── */
+  --color-success: #16A34A;
+  --color-success-light: #F0FDF4;
+  --color-success-text: #15803D;
+  --color-warning: #D97706;
+  --color-warning-light: #FFFBEB;
+  --color-warning-text: #B45309;
+  --color-error: #DC2626;
+  --color-error-light: #FEF2F2;
+  --color-error-text: #B91C1C;
+  --color-info: #0552AC;
+  --color-info-light: #E8F0FE;
+  --color-info-text: #0552AC;
+
+  /* ── Typography ── */
+  --font-headline: var(--font-playfair), "Playfair Display", serif;
+  --font-cinzel: var(--font-cinzel), "Cinzel", serif;
+  --font-body: var(--font-jakarta), "Plus Jakarta Sans", sans-serif;
+  --font-script: var(--font-alex-brush), "Alex Brush", cursive;
+
+  /* ── Motion (Apple fluid-interface springs, expressed as CSS linear()) ──
+     spring-ui     → damping 1.0, response 0.35 (critically damped, no overshoot)
+     spring-sheet  → damping 0.8, response 0.30 (drawers/sheets, gentle settle) */
+  --ease-spring-ui: linear(0, 0.075, 0.227, 0.39, 0.536, 0.656, 0.75, 0.821, 0.873, 0.911, 0.938, 0.957, 0.971, 0.98, 0.986, 0.991, 0.994, 0.996, 0.997, 0.998, 1);
+  --ease-spring-sheet: linear(0, 0.089, 0.274, 0.474, 0.65, 0.787, 0.884, 0.947, 0.985, 1.005, 1.013, 1.015, 1.014, 1.011, 1.008, 1.005, 1.003, 1.002, 1.001, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --default-transition-duration: 180ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   APPLE-GRADE DESIGN LAYER
+   Response · Materials · Typography · Spatial consistency · A11y
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Enter animations (animate-in + fade/zoom/slide modifiers) ──
+   Composable like tw-animate: each modifier sets a variable, one keyframe
+   reads them. Uses the critically damped UI spring — no overshoot on
+   things that merely appear (overshoot is reserved for momentum). */
+@keyframes dc-enter {
+  from {
+    opacity: var(--dc-enter-opacity, 1);
+    transform: translate3d(var(--dc-enter-x, 0), var(--dc-enter-y, 0), 0) scale(var(--dc-enter-scale, 1));
+    filter: blur(var(--dc-enter-blur, 0));
+  }
+}
+
+@utility animate-in {
+  animation: dc-enter var(--tw-duration, 360ms) var(--ease-spring-ui) both;
+}
+@utility fade-in {
+  --dc-enter-opacity: 0;
+}
+@utility zoom-in {
+  --dc-enter-scale: 0.96;
+  --dc-enter-blur: 4px;
+}
+@utility zoom-in-95 {
+  --dc-enter-scale: 0.95;
+  --dc-enter-blur: 4px;
+}
+@utility zoom-out {
+  --dc-enter-scale: 1.04;
+}
+@utility slide-in-from-top {
+  --dc-enter-y: -100%;
+}
+@utility slide-in-from-top-2 {
+  --dc-enter-y: -0.5rem;
+}
+@utility slide-in-from-top-4 {
+  --dc-enter-y: -1rem;
+}
+@utility slide-in-from-bottom-4 {
+  --dc-enter-y: 1rem;
+}
+@utility animate-fade-in {
+  --dc-enter-opacity: 0;
+  animation: dc-enter 320ms var(--ease-spring-ui) both;
+}
+
+/* ── Translucent materials ──
+   Thin material for floating chrome (nav bars, docks), thick for sheets.
+   Content scrolls underneath; a soft scroll-edge shadow replaces hard rules. */
+@utility material-bar {
+  background-color: rgb(255 255 255 / 0.72);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow:
+    inset 0 -0.5px 0 rgb(13 24 41 / 0.08),
+    0 8px 24px -16px rgb(5 82 172 / 0.18);
+}
+@utility material-dock {
+  background-color: rgb(255 255 255 / 0.78);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    inset 0 0.5px 0 rgb(255 255 255 / 0.9),
+    0 -0.5px 0 rgb(13 24 41 / 0.08),
+    0 -12px 32px -12px rgb(5 82 172 / 0.16);
+}
+@utility material-sheet {
+  background-color: rgb(255 255 255 / 0.86);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(180%);
+}
+
+/* Press feedback on demand for non-button elements (cards that act as links) */
+@utility pressable {
+  transition: scale 120ms var(--ease-out-quint);
+  &:active {
+    scale: 0.98;
+  }
+}
+
 @layer base {
-  :root {
-    --background: 240 10% 4%;
-    --foreground: 0 0% 98%;
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    hanging-punctuation: first last;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
   }
 
   body {
-    background-color: #07070D;
-    color: #F8FAFC;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    background-color: #F8FAFD;
+    color: #0D1829;
+    font-family: var(--font-jakarta), "Plus Jakarta Sans", sans-serif;
+  }
+
+  /* ── Text selection ── */
+  ::selection {
+    background-color: #0552AC;
+    color: #FFFFFF;
+  }
+
+  ::-moz-selection {
+    background-color: #0552AC;
+    color: #FFFFFF;
+  }
+
+  /* ── Focus rings (keyboard-only) ──
+     Royal blue meets 3:1 non-text contrast on ivory/white; gold alone did not. */
+  :focus-visible {
+    outline: 2px solid #0552AC;
+    outline-offset: 2px;
+  }
+
+  /* ── Response: kill latency on touch ── */
+  html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  a, button, [role="button"], input, select, textarea, label, summary {
+    touch-action: manipulation;
+  }
+
+  /* Instant, physical press feedback on every button (zero specificity, so
+     any explicit active:scale-* utility still wins). */
+  :where(button, [role="button"], summary):where(:not(:disabled)) {
+    transition-property: scale, color, background-color, border-color, box-shadow, opacity, transform, translate;
+    transition-duration: 160ms;
+    transition-timing-function: var(--ease-out-quint);
+  }
+  :where(button, [role="button"], summary):where(:not(:disabled)):active {
+    scale: 0.97;
+    transition-duration: 80ms;
+  }
+
+  /* Long-press on a button should not select its label */
+  button, [role="button"] {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* ── Typography: optical sizing, size-specific tracking, balanced wraps ── */
+  body {
+    font-optical-sizing: auto;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+    font-optical-sizing: auto;
+  }
+
+  h1.font-headline, h2.font-headline {
+    letter-spacing: -0.018em;
+  }
+
+  h3.font-headline, h4.font-headline {
+    letter-spacing: -0.01em;
+  }
+
+  p, li, blockquote {
+    text-wrap: pretty;
+  }
+
+  /* iOS zooms into inputs under 16px — keep fields at 16px on phones */
+  @media (max-width: 767px) and (pointer: coarse) {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+    select,
+    textarea {
+      font-size: max(16px, 1em);
+    }
+  }
+
+  /* ── Caret color in inputs ── */
+  input, textarea, [contenteditable] {
+    caret-color: #0552AC;
+  }
+
+  /* ── Links ── */
+  a {
+    text-underline-offset: 0.15em;
+  }
+
+  /* ── Custom scrollbar (Webkit / Chromium) ── */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #0552AC20;
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #0552AC40;
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #0552AC20 transparent;
   }
 }
 
-/* Custom Glass & Glow Utilities */
-.glass-panel {
-  background: rgba(14, 16, 26, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* ── Typography utilities ── */
+.font-cinzel {
+  font-family: var(--font-cinzel), "Cinzel", serif;
 }
 
-.glass-card {
-  background: rgba(20, 24, 38, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+.font-headline {
+  font-family: var(--font-playfair), "Playfair Display", serif;
 }
 
-.glow-purple {
-  box-shadow: 0 0 35px rgba(139, 92, 246, 0.25);
+.font-script {
+  font-family: var(--font-alex-brush), "Alex Brush", cursive;
 }
 
-.glow-cyan {
-  box-shadow: 0 0 35px rgba(6, 182, 212, 0.25);
+.font-body {
+  font-family: var(--font-jakarta), "Plus Jakarta Sans", sans-serif;
 }
 
-.glow-emerald {
-  box-shadow: 0 0 35px rgba(16, 185, 129, 0.25);
+/* ── Tabular numerals for KPIs, counters, tables ── */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
-/* Watermark diagonal ribbon */
-.showcase-watermark-ribbon {
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(139, 92, 246, 0.04),
-    rgba(139, 92, 246, 0.04) 20px,
-    rgba(6, 182, 212, 0.04) 20px,
-    rgba(6, 182, 212, 0.04) 40px
-  );
+/* ── Hide scrollbar on horizontal scroll carousels ── */
+.overflow-x-auto,
+.scrollbar-none {
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* IE/Edge */
 }
+.overflow-x-auto::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;                  /* WebKit */
+}
+
+/* ── SweetAlert: materialize instead of the default bouncy pop ── */
+.swal2-popup.swal2-show {
+  animation: dc-enter 360ms var(--ease-spring-ui) both;
+  --dc-enter-opacity: 0;
+  --dc-enter-scale: 0.94;
+  --dc-enter-blur: 6px;
+}
+.swal2-popup.swal2-hide {
+  animation: dc-exit 160ms var(--ease-out-quint) both;
+}
+@keyframes dc-exit {
+  to {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+.swal2-icon.swal2-success [class^="swal2-success-line"],
+.swal2-icon .swal2-icon-content {
+  animation-timing-function: var(--ease-spring-ui) !important;
+}
+
+/* ═══ Accessibility: reduced motion, transparency & increased contrast ═══ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Enter motion becomes a short cross-fade — never a slide or zoom */
+  .animate-in,
+  .animate-fade-in,
+  .swal2-popup.swal2-show {
+    --dc-enter-x: 0 !important;
+    --dc-enter-y: 0 !important;
+    --dc-enter-scale: 1 !important;
+    --dc-enter-blur: 0 !important;
+    animation-duration: 180ms !important;
+    animation-timing-function: ease !important;
+  }
+
+  /* Looping attention-grabbers stop; static state is kept */
+  .animate-ping,
+  .animate-bounce {
+    animation: none !important;
+  }
+  .animate-pulse {
+    animation: none !important;
+  }
+
+  /* Hover lifts and zooms are vestibular noise */
+  [class*="hover:scale"]:hover,
+  [class*="hover:-translate"]:hover,
+  [class*="group-hover:scale"] {
+    scale: none !important;
+    translate: none !important;
+  }
+
+  :where(button, [role="button"], summary):active,
+  .pressable:active {
+    scale: none !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .material-bar,
+  .material-dock,
+  .material-sheet {
+    background-color: #ffffff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .material-bar,
+  .material-dock,
+  .material-sheet {
+    background-color: #ffffff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: inset 0 -1px 0 #0d1829;
+  }
+  :focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* ── Mobile Form & Select Safeguards (Prevents overflow on iOS / iPhone) ── */
+select {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* ── Check-in QR Camera Scanner Styles ── */
+#reader {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+#reader video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 1rem;
+}
+
+#reader__scan_region {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 240px;
+}
+
+#reader__dashboard_section_csr {
+  display: none !important;
+}
+

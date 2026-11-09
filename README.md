@@ -1,58 +1,48 @@
-# DevFlow Events · Showcase & Demo Interactivo 🌟
+# DevFlow Events · Demo interactiva
 
-Plataforma de alta tecnología para eventos de gala (Quinceañeras, Bodas, Aniversarios y Eventos VIP) desarrollada por **DevFlow**.
+La plataforma **real** de una gala (XV Años de Dannia Carolina), convertida en una demo que cualquiera puede abrir, usar y enamorarse de ella — **sin costo de servicios**.
 
-Esta versión es un **Showcase / Portafolio 100% Funcional** diseñado para presentaciones comerciales y demostraciones interactivas a clientes:
-- **$0 Costo de Servidores:** 100% en memoria con reactividad en tiempo real y persistencia en `localStorage`. Sin bases de datos externas ni credenciales activas.
-- **Protección Anticopia de Portafolio:** Marcas de agua diagonales en pases digitales, selector de invitados de prueba y botón de conversión directa hacia WhatsApp de DevFlow.
-- **Rendimiento Ultrarrápido:** Construido con Next.js 16, React 19, Tailwind CSS v4 y desplegado como páginas estáticas en Vercel Edge Network.
+- **Mismos componentes que producción.** `src/components/{admin,guest,live,recuerdos,shared}` son copias de la app real (`dannia_xv`), con el mismo diseño.
+- **$0 en infraestructura.** No hay base de datos, auth, almacenamiento de fotos ni WhatsApp. Todo vive en el `localStorage` del visitante y el build es 100% estático.
+- **Sincronización entre pestañas.** Sube una foto en una pestaña y aparece en `/live` o en moderación en otra (`BroadcastChannel`).
+- **Datos ficticios.** 107 titulares, 37 mesas, fotos y dedicatorias de ejemplo; ningún nombre, teléfono o código corresponde a una persona real.
 
----
+## Cómo funciona
 
-## 🚀 Módulos Incluidos
+```
+Componentes reales ──fetch("/api/...")──▶ src/demo/api.ts  (interceptor en el navegador)
+                                              │
+                                              ▼
+                                       src/demo/db.ts     (localStorage + BroadcastChannel)
+                                              ▲
+                                       src/demo/seed.ts   (estado inicial reiniciable)
+```
 
-1. **Invitación Digital Interactiva (`/`)**
-   - Música sincronizada con reproductor elegante.
-   - Cuenta regresiva milimétrica hacia la fecha del evento.
-   - Itinerario de gala con timeline visual.
-   - Ubicación en 1 toque (Waze y Google Maps).
-   - Código de vestimenta con visualización de colores reservados.
-   - Formulario interactivo de confirmación RSVP.
-   - Generador y visor del Pase Digital VIP con código QR intransferible.
+| Pieza de producción | Sustituto en la demo |
+| --- | --- |
+| Neon PostgreSQL + Drizzle | `src/demo/db.ts` (localStorage) |
+| 25 rutas `/api/*` | `src/demo/api.ts` responde con el mismo JSON |
+| NextAuth | `src/demo/auth.ts` · botón "Entrar como Coordinador de Demo" |
+| Cloudflare R2 | Fotos comprimidas a JPEG en el navegador |
+| Evolution API (WhatsApp) | Envíos simulados, nunca sale un mensaje |
+| Páginas de servidor | `src/views/*` leen el almacén local con `useDemoDb()` |
 
-2. **Dashboard Ejecutivo en Tiempo Real (`/admin`)**
-   - KPIs de aforo en salón y ocupación porcentual.
-   - Pases validados vs cupos totales.
-   - Lista maestra de invitados con búsqueda instantánea, filtrado y alternancia de estado RSVP con 1 clic.
+El **dock DevFlow** (abajo a la derecha) identifica a DevFlow Events, permite saltar entre módulos, reiniciar los datos y cotizar por WhatsApp.
 
-3. **Escáner de Acceso Express en Puerta (`/admin/checkin`)**
-   - Validación de códigos QR en menos de 0.5s.
-   - Detección automática de pases duplicados o fraudulentos.
-   - Sintetizador de audio con Web Audio API (bips en vivo sin archivos de audio externos).
-   - Simulador rápido de prueba con 1 toque.
+## Rutas
 
-4. **Plano de Mesas Interactivo (`/admin/tables`)**
-   - Mapeo de 35 mesas con diferenciación de Mesa de Honor.
-   - Consulta instantánea de comensales y cupos asignados por mesa.
+`/` invitación · `/?code=VIP-DC-001` invitación personalizada · `/live` muro en vivo · `/recuerdos` archivo post-evento · `/login` · `/admin` (métricas, invitados, mesas, check-in QR, itinerario, moderación, automatizaciones, álbum de etapas, ajustes).
 
-5. **Muro Social en Pantalla Gigante LED (`/live`)**
-   - Modo de proyección para salones de fiesta y escenarios LED.
-   - Carrusel rotativo en tiempo real de dedicatorias y fotos aprobadas.
-   - Código QR en pantalla para que los invitados suban selfies desde sus mesas.
+## Desarrollo
 
-6. **Panel de Moderación en Vivo (`/admin/moderation`)**
-   - Cola de revisión antes de proyección para el anfitrión.
-   - Aprobación o descarte de fotos en 1 clic.
+```bash
+pnpm install
+pnpm dev      # http://localhost:3000
+pnpm build    # export estático, desplegable gratis en Vercel / Netlify / Cloudflare Pages
+```
 
-7. **Portal Móvil de Recuerdos (`/recuerdos`)**
-   - Subida de fotos directamente convertidas a Base64 sin consumo de almacenamiento en la nube.
+Al cambiar la forma de los datos de la semilla, sube `DB_VERSION` en `src/demo/seed.ts` para que los visitantes reciban datos frescos.
 
 ---
 
-## 🛠️ Tecnologías
-
-- **Framework:** Next.js 16 (App Router)
-- **UI:** React 19, Tailwind CSS v4, Lucide React
-- **QR & FX:** qrcode, canvas-confetti
-- **Audio:** Web Audio API nativo
-- **Desarrollado por:** DevFlow (contacto: +505 8272 5817)
+Hecho por **DevFlow** · [www.devflow.lat](https://www.devflow.lat)
