@@ -998,7 +998,7 @@ export function PhotoModerationQueue() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
               {filteredPhotos.map((photo, idx) => {
                 const imgUrl =
                   photo.asset?.publicUrl ||
@@ -1101,50 +1101,52 @@ export function PhotoModerationQueue() {
                     </div>
 
                     {/* Quick Action Button Bar */}
-                    <div className="p-2 bg-white flex items-center justify-between gap-1 border-t border-slate-100">
-                      <button
-                        type="button"
-                        onClick={() => handleSinglePhotoAction(photo.id, "reject")}
-                        title="Descartar foto (No proyectar)"
-                        className="p-1.5 rounded-xl hover:bg-rose-50 text-rose-600/70 hover:text-rose-700 transition-colors cursor-pointer"
-                      >
-                        <span className="material-symbols-outlined text-[18px]">close</span>
-                      </button>
+                    <div className="p-2 bg-white flex items-center justify-between gap-1.5 border-t border-slate-100">
+                      <div className="flex items-center gap-0.5 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => handleSinglePhotoAction(photo.id, "reject")}
+                          title="Descartar foto (No proyectar)"
+                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg hover:bg-rose-50 text-rose-600/70 hover:text-rose-700 flex items-center justify-center transition-colors cursor-pointer"
+                        >
+                          <span className="material-symbols-outlined text-[17px]">close</span>
+                        </button>
 
-                      <button
-                        type="button"
-                        onClick={() => handleSinglePhotoAction(photo.id, "feature")}
-                        title="Destacar en Álbum VIP con marco dorado"
-                        className={`p-1.5 rounded-xl transition-colors cursor-pointer ${
-                          photo.isFeatured
-                            ? "bg-amber-50 text-[#D4AF37]"
-                            : "hover:bg-amber-50 text-amber-700/70 hover:text-amber-700"
-                        }`}
-                      >
-                        <span className="material-symbols-outlined text-[18px]">star</span>
-                      </button>
+                        <button
+                          type="button"
+                          onClick={() => handleSinglePhotoAction(photo.id, "feature")}
+                          title="Destacar en Álbum VIP con marco dorado"
+                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${
+                            photo.isFeatured
+                              ? "bg-amber-50 text-[#D4AF37]"
+                              : "hover:bg-amber-50 text-amber-700/70 hover:text-amber-700"
+                          }`}
+                        >
+                          <span className="material-symbols-outlined text-[17px]">star</span>
+                        </button>
 
-                      <button
-                        type="button"
-                        onClick={() => openInspector(idx)}
-                        title="Inspeccionar a detalle"
-                        className="p-1.5 rounded-xl hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
-                      >
-                        <span className="material-symbols-outlined text-[18px]">open_in_full</span>
-                      </button>
+                        <button
+                          type="button"
+                          onClick={() => openInspector(idx)}
+                          title="Inspeccionar a detalle"
+                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center transition-colors cursor-pointer"
+                        >
+                          <span className="material-symbols-outlined text-[17px]">open_in_full</span>
+                        </button>
+                      </div>
 
                       <button
                         type="button"
                         onClick={() => handleSinglePhotoAction(photo.id, "approve")}
-                        title="Aprobar para rotación en Pantalla LED"
-                        className={`px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-1 shadow-2xs transition cursor-pointer ${
+                        title={photo.moderationStatus === "approved" ? "Proyectada en Gran Pantalla" : "Aprobar y proyectar en pantalla LED"}
+                        className={`px-2.5 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-1 shadow-2xs transition shrink-0 cursor-pointer ${
                           photo.moderationStatus === "approved"
-                            ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                            ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
                             : "bg-[#0552AC] hover:bg-[#001F54] text-white"
                         }`}
                       >
                         <span className="material-symbols-outlined text-[14px]">connected_tv</span>
-                        <span>{photo.moderationStatus === "approved" ? "Proyectada" : "Proyectar"}</span>
+                        <span className="whitespace-nowrap">{photo.moderationStatus === "approved" ? "En Pantalla" : "Proyectar"}</span>
                       </button>
                     </div>
                   </div>

@@ -284,21 +284,21 @@ export function GuestManagementTable() {
   };
 
   return (
-    <section className="bg-white p-4 sm:p-6 rounded-3xl border border-slate-200/80 shadow-xs flex flex-col gap-5 max-w-full overflow-hidden">
+    <section className="bg-white p-3.5 sm:p-6 rounded-3xl border border-slate-200/80 shadow-xs flex flex-col gap-4 sm:gap-5 max-w-full overflow-hidden">
       {/* Header and Controls */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h2 className="font-headline text-lg font-bold text-[#0D1829] leading-tight">
+          <h2 className="font-headline text-base sm:text-lg font-bold text-[#0D1829] leading-tight">
             Directorio Activo de Invitados &amp; Asignación
           </h2>
-          <p className="text-xs text-slate-500">
-            Datos de demostración locales • Mostrando {filteredGuests.length} de {guests.length} titulares registrados
+          <p className="text-xs text-slate-500 mt-0.5">
+            Mostrando {filteredGuests.length} de {guests.length} titulares registrados
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2 w-full lg:w-auto">
           {/* Search Input */}
-          <div className="relative w-full sm:w-auto flex-1 min-w-0 sm:min-w-[200px]">
+          <div className="relative w-full sm:w-auto flex-1 min-w-0 sm:min-w-[210px]">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-slate-400">
               search
             </span>
@@ -307,7 +307,7 @@ export function GuestManagementTable() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Buscar por nombre, código..."
-              className="w-full pl-9 pr-3 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#0552AC] focus:bg-white transition"
+              className="w-full pl-9 pr-3 py-2 sm:py-1.5 rounded-xl sm:rounded-full bg-slate-50 border border-slate-200 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#0552AC] focus:bg-white transition"
             />
           </div>
 
@@ -315,7 +315,7 @@ export function GuestManagementTable() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="w-full sm:w-auto px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700 focus:outline-none focus:border-[#0552AC] cursor-pointer max-w-full truncate"
+            className="flex-1 sm:flex-none px-3 py-2 sm:py-1.5 rounded-xl sm:rounded-full bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700 focus:outline-none focus:border-[#0552AC] cursor-pointer"
           >
             <option value="all">Estado: Todos</option>
             <option value="confirmed">Confirmados</option>
@@ -323,26 +323,11 @@ export function GuestManagementTable() {
             <option value="declined">Declinados</option>
           </select>
 
-          {/* Phone Status Filter */}
-          <select
-            value={phoneFilter}
-            onChange={(e) => setPhoneFilter(e.target.value as any)}
-            className={`w-full sm:w-auto px-3 py-1.5 rounded-full border text-xs font-semibold focus:outline-none focus:border-[#0552AC] cursor-pointer max-w-full truncate ${
-              phoneFilter === "missing"
-                ? "bg-amber-50 border-amber-300 text-amber-800"
-                : "bg-slate-50 border-slate-200 text-slate-700"
-            }`}
-          >
-            <option value="all">Teléfono: Todos ({guests.length})</option>
-            <option value="missing">⚠️ Sin Teléfono ({missingPhoneCount})</option>
-            <option value="with_phone">📱 Con WhatsApp ({withPhoneCount})</option>
-          </select>
-
           {/* Table Filter */}
           <select
             value={tableFilter}
             onChange={(e) => setTableFilter(e.target.value)}
-            className="w-full sm:w-auto px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700 focus:outline-none focus:border-[#0552AC] cursor-pointer max-w-full sm:max-w-[190px] truncate"
+            className="flex-1 sm:flex-none px-3 py-2 sm:py-1.5 rounded-xl sm:rounded-full bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700 focus:outline-none focus:border-[#0552AC] cursor-pointer max-w-full sm:max-w-[170px] truncate"
           >
             <option value="all">Mesa: Todas</option>
             <option value="unassigned">Sin Mesa Asignada</option>
@@ -354,12 +339,12 @@ export function GuestManagementTable() {
           </select>
 
           {/* CSV Export & Add Guest */}
-          <div className="flex items-center gap-2 w-full sm:w-auto">
+          <div className="flex items-center gap-2 w-full sm:w-auto mt-1 sm:mt-0">
             <button
               type="button"
               onClick={handleExportCSV}
               title="Exportar a archivo Excel / CSV con formato Evolution API"
-              className="flex-1 sm:flex-none justify-center px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer whitespace-nowrap"
+              className="flex-1 sm:flex-none justify-center px-3.5 py-2 sm:py-1.5 rounded-xl sm:rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer whitespace-nowrap"
             >
               <span className="material-symbols-outlined text-[16px]">download</span>
               <span>Exportar</span>
@@ -368,7 +353,7 @@ export function GuestManagementTable() {
             <button
               type="button"
               onClick={handleOpenCreateModal}
-              className="flex-1 sm:flex-none justify-center px-3.5 py-1.5 rounded-full bg-[#0552AC] text-white hover:bg-[#001F54] text-xs font-semibold shadow-xs flex items-center gap-1.5 transition cursor-pointer whitespace-nowrap"
+              className="flex-1 sm:flex-none justify-center px-4 py-2 sm:py-1.5 rounded-xl sm:rounded-full bg-[#0552AC] text-white hover:bg-[#001F54] text-xs font-semibold shadow-xs flex items-center gap-1.5 transition cursor-pointer whitespace-nowrap active:scale-95"
             >
               <span className="material-symbols-outlined text-[17px] text-[#D4AF37]">
                 person_add
@@ -380,9 +365,9 @@ export function GuestManagementTable() {
       </div>
 
       {/* Quick Outreach Filter Chips: WhatsApp / Evolution API Readiness */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar text-xs border-t border-slate-100 pt-3">
-        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-cinzel shrink-0">
-          Estado WhatsApp:
+      <div className="flex items-center gap-2 overflow-x-auto pb-1.5 no-scrollbar text-xs border-t border-slate-100 pt-3">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-cinzel shrink-0">
+          Filtros Rápidos:
         </span>
 
         <button
@@ -394,7 +379,7 @@ export function GuestManagementTable() {
               : "bg-slate-100 text-slate-600 hover:bg-slate-200"
           }`}
         >
-          <span>Todos los Invitados</span>
+          <span>Todos</span>
           <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
             phoneFilter === "all" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
           }`}>
@@ -414,11 +399,9 @@ export function GuestManagementTable() {
           }`}
         >
           <span className="material-symbols-outlined text-[14px]">phone_disabled</span>
-          <span>Sin Tel&eacute;fono Registrado</span>
+          <span>Sin Teléfono</span>
           <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
-            phoneFilter === "missing"
-              ? "bg-white/25 text-white"
-              : "bg-amber-200 text-amber-900"
+            phoneFilter === "missing" ? "bg-white/25 text-white" : "bg-amber-200 text-amber-900"
           }`}>
             {missingPhoneCount}
           </span>
@@ -436,9 +419,7 @@ export function GuestManagementTable() {
           <span className="material-symbols-outlined text-[14px]">verified</span>
           <span>Listos Evolution API</span>
           <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
-            phoneFilter === "with_phone"
-              ? "bg-white/25 text-white"
-              : "bg-emerald-200 text-emerald-900"
+            phoneFilter === "with_phone" ? "bg-white/25 text-white" : "bg-emerald-200 text-emerald-900"
           }`}>
             {withPhoneCount}
           </span>
@@ -458,17 +439,246 @@ export function GuestManagementTable() {
           <span className="material-symbols-outlined text-[14px]">chair</span>
           <span>Sin Mesa Asignada</span>
           <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
-            tableFilter === "unassigned"
-              ? "bg-white/25 text-white"
-              : "bg-amber-200 text-amber-900"
+            tableFilter === "unassigned" ? "bg-white/25 text-white" : "bg-amber-200 text-amber-900"
           }`}>
             {unassignedCount}
           </span>
         </button>
       </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto rounded-2xl border border-slate-200">
+      {/* ────────────────────────────────────────────────────────── */}
+      {/* 1. MOBILE CARDS VIEW (block md:hidden)                   */}
+      {/* ────────────────────────────────────────────────────────── */}
+      <div className="block md:hidden space-y-3">
+        {loading ? (
+          <div className="py-12 text-center text-slate-400">
+            <div className="flex items-center justify-center gap-2">
+              <span className="w-4 h-4 rounded-full border-2 border-[#0552AC] border-t-transparent animate-spin" />
+              <span>Cargando padrón de invitados...</span>
+            </div>
+          </div>
+        ) : paginatedGuests.length === 0 ? (
+          <div className="p-8 text-center text-slate-400 bg-slate-50 rounded-2xl border border-slate-200">
+            No se encontraron invitados con los filtros seleccionados.
+          </div>
+        ) : (
+          paginatedGuests.map((guest) => {
+            const fullName = `${guest.person?.firstName || ""} ${guest.person?.lastName || ""}`.trim() || "Invitado";
+            const initials = fullName
+              .split(" ")
+              .map((n) => n[0])
+              .slice(0, 2)
+              .join("");
+            const groupName = guest.groupMemberships?.[0]?.group?.name || "Familia de Gala";
+            const tableName = guest.tableAssignment?.table?.tableName || "Sin mesa asignada";
+            const isAssigned = Boolean(guest.tableAssignment);
+            const rawPhone = guest.person?.phone;
+            const isPhoneMissingVal = isPhoneMissing(rawPhone);
+            const phoneData = !isPhoneMissingVal ? parsePhoneNumber(rawPhone) : null;
+
+            return (
+              <div
+                key={guest.id}
+                className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col gap-3 transition-shadow hover:shadow-md"
+              >
+                {/* Card Top: Avatar, Name, Status Badge */}
+                <div className="flex items-start justify-between gap-2.5">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs shrink-0 ${
+                        guest.isVip
+                          ? "bg-[#D4AF37]/20 text-[#001F54] border border-[#D4AF37]"
+                          : "bg-[#0552AC]/10 text-[#0552AC]"
+                      }`}
+                    >
+                      {initials}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="font-bold text-sm text-[#0D1829] truncate">
+                          {fullName}
+                        </span>
+                        {guest.isVip && (
+                          <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-[#D4AF37] text-[#001F54] font-bold uppercase font-cinzel">
+                            VIP
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mt-0.5">
+                        <span className="font-mono text-slate-500 font-semibold">{guest.invitationCode}</span>
+                        <span>•</span>
+                        <span className="truncate text-slate-600">{groupName}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Status Badge */}
+                  <div className="shrink-0">
+                    {guest.status === "confirmed" && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        Confirmado
+                      </span>
+                    )}
+                    {guest.status === "invited" && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 text-[10px] font-bold border border-amber-200">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                        Pendiente
+                      </span>
+                    )}
+                    {guest.status === "declined" && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 text-[10px] font-bold border border-rose-200">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+                        Declinado
+                      </span>
+                    )}
+                    {guest.status === "waitlist" && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 text-[10px] font-bold border border-purple-200">
+                        Lista de espera
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Card Middle: Key Facts (Seats & Table) */}
+                <div className="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-100 text-xs">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase text-slate-400 block">
+                      Cupos / Pases
+                    </span>
+                    <span className="font-bold text-[#0D1829] mt-0.5 block">
+                      {guest.status === "confirmed" ? (
+                        <span className="text-emerald-700">
+                          {guest.confirmedSeats} de {guest.maxSeats} asistirán
+                        </span>
+                      ) : (
+                        <span className="text-slate-500">
+                          {guest.maxSeats} asignados
+                        </span>
+                      )}
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] font-bold uppercase text-slate-400 block">
+                      Mesa Asignada
+                    </span>
+                    {isAssigned ? (
+                      <span className="font-bold text-[#0552AC] mt-0.5 block truncate">
+                        {tableName}
+                      </span>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEditModal(guest)}
+                        className="text-amber-700 font-bold hover:underline mt-0.5 block text-left"
+                      >
+                        ⚠️ Sin asignar (+ Asignar)
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Contact & WhatsApp Strip */}
+                <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-100 text-xs">
+                  {isPhoneMissingVal ? (
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+                        <span className="material-symbols-outlined text-[13px]">phone_disabled</span>
+                        <span>Sin teléfono</span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEditModal(guest)}
+                        className="text-[11px] text-[#0552AC] font-bold underline cursor-pointer"
+                      >
+                        + Registrar
+                      </button>
+                    </div>
+                  ) : (
+                    phoneData && (
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="inline-flex items-center gap-1 text-[11px] text-slate-700 font-medium font-mono">
+                          <span>{phoneData.countryFlag}</span>
+                          <span>{phoneData.formattedDisplay}</span>
+                        </span>
+                        {phoneData.evolutionApiNumber && (
+                          <button
+                            type="button"
+                            onClick={() => handleCopyEvolutionPhone(phoneData.evolutionApiNumber!, fullName)}
+                            className="p-1 rounded bg-slate-100 hover:bg-[#E8F0FE] text-slate-600 hover:text-[#0552AC] transition"
+                            title="Copiar número Evolution API"
+                          >
+                            <span className="material-symbols-outlined text-[14px]">content_copy</span>
+                          </button>
+                        )}
+                      </div>
+                    )
+                  )}
+
+                  {phoneData?.waUrl && (
+                    <a
+                      href={phoneData.waUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-600 hover:text-white transition text-[11px] font-bold flex items-center gap-1 shrink-0"
+                    >
+                      <span className="material-symbols-outlined text-[14px]">chat</span>
+                      <span>WhatsApp</span>
+                    </a>
+                  )}
+                </div>
+
+                {/* Dietary Notes if any */}
+                {(guest.person?.notes || guest.internalNotes) && (
+                  <div className="text-[11px] text-amber-800 bg-amber-50/80 p-2 rounded-lg border border-amber-200/60 flex items-start gap-1.5">
+                    <span className="material-symbols-outlined text-[14px] text-amber-600 shrink-0 mt-0.5">restaurant</span>
+                    <span>{guest.person?.notes || guest.internalNotes}</span>
+                  </div>
+                )}
+
+                {/* Card Action Buttons */}
+                <div className="grid grid-cols-3 gap-2 pt-1 border-t border-slate-100">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveGuestCode(guest.invitationCode);
+                      setShowPassModal(true);
+                    }}
+                    className="py-2 px-2 rounded-xl bg-slate-100 hover:bg-[#E8F0FE] text-[#0552AC] font-bold text-xs flex items-center justify-center gap-1 transition cursor-pointer active:scale-95"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">qr_code_2</span>
+                    <span>Pase QR</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleOpenEditModal(guest)}
+                    className="py-2 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-1 transition cursor-pointer active:scale-95"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">edit</span>
+                    <span>Editar</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteGuest(guest.id, fullName)}
+                    className="py-2 px-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center gap-1 transition cursor-pointer active:scale-95"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">delete</span>
+                    <span>Eliminar</span>
+                  </button>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* ────────────────────────────────────────────────────────── */}
+      {/* 2. DESKTOP TABLE VIEW (hidden md:block)                   */}
+      {/* ────────────────────────────────────────────────────────── */}
+      <div className="hidden md:block overflow-x-auto rounded-2xl border border-slate-200">
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-slate-50 text-slate-500 text-[10px] font-bold uppercase tracking-wider border-b border-slate-200">
@@ -486,7 +696,7 @@ export function GuestManagementTable() {
               <tr>
                 <td colSpan={7} className="py-12 text-center text-slate-400">
                   <div className="flex items-center justify-center gap-2">
-                    <span className="w-4 h-4 rounded-full border-2 border-[#0552AC] border-t-transparent animate-spin"></span>
+                    <span className="w-4 h-4 rounded-full border-2 border-[#0552AC] border-t-transparent animate-spin" />
                     <span>Cargando padrón de invitados...</span>
                   </div>
                 </td>
@@ -547,7 +757,7 @@ export function GuestManagementTable() {
                                   </span>
                                   <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
                                     <span className="material-symbols-outlined text-[12px]">phone_disabled</span>
-                                    <span>Sin tel&eacute;fono</span>
+                                    <span>Sin teléfono</span>
                                   </span>
                                   <button
                                     type="button"
@@ -634,19 +844,19 @@ export function GuestManagementTable() {
                     <td className="py-3.5 px-4">
                       {guest.status === "confirmed" && (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                           Confirmado
                         </span>
                       )}
                       {guest.status === "invited" && (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[11px] font-bold border border-amber-200">
-                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                           Pendiente
                         </span>
                       )}
                       {guest.status === "declined" && (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-700 text-[11px] font-bold border border-rose-200">
-                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
                           Declinado
                         </span>
                       )}

@@ -11,6 +11,7 @@ import { TopExperienceNav } from "@/components/shared/TopExperienceNav";
 import { MobileModeSwitcher } from "@/components/shared/MobileModeSwitcher";
 import { MobileBottomNav } from "@/components/guest/MobileBottomNav";
 import { PublicDesktopNav } from "@/components/guest/PublicDesktopNav";
+import { DevFlowNavbar } from "@/components/showcase/DevFlowNavbar";
 import { LifeStagesCarousel } from "@/components/guest/LifeStagesCarousel";
 import { CURATED_DEFAULT_STAGE_PHOTOS, StagePhoto } from "@/lib/stages-data";
 import { formatTableDisplay } from "@/lib/pass-utils";
@@ -89,60 +90,11 @@ export default function HomeView() {
 
   return (
     <div className="w-full min-h-screen bg-[#F8FAFD] text-[#0D1829] font-body selection:bg-[#0552AC] selection:text-white flex flex-col">
-      {/* 1. HEADER DE GALA */}
-      <header className="fixed top-0 left-0 right-0 z-50 material-bar">
-        {/* Mobile: compact 64px | Desktop: full 72px */}
-        <div className="h-16 md:h-[72px] w-full max-w-[1440px] mx-auto px-3 sm:px-4 md:px-5 lg:px-4 xl:px-6 flex items-center justify-between gap-1.5 xl:gap-3">
-
-          {/* Brand Identity */}
-          <div className="flex items-center gap-2.5 shrink-0">
-            <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-full bg-white shadow-sm ring-1 ring-[#0552AC]/25 flex items-center justify-center overflow-hidden shrink-0">
-              <img
-                alt="D'CAROL Logo Oficial Dannia Carolina"
-                className="w-full h-full object-contain"
-                src={
-                  event?.branding?.logoUrl ||
-                  "https://lh3.googleusercontent.com/aida-public/AB6AXuBzkp1Gb79UXobRrLQGHnahgOFNMZTmpYE35WrdDdL5Nb06s7zYMlgfaDftGN95HDq4BYfEc3sQOolZoS2E6YmKyJQTSpzw6LZaCwdtqe9qTtO6GBVO_tT0t71WJUi0ZizCVNcBppY5Ji5mEH3s2_Hs4QHsFBsgeQWuKMTBhOZawr4B78VRtcvuMtaNVUXVDG-3oUtD-y47LQt5dWQ_9qcRnsGCFzXvXF1t7W_hL5tf7RMJD-1FtF3xAaV0wWP3Hic"
-                }
-              />
-            </div>
-            <div className="flex flex-col shrink-0">
-              <span className="font-cinzel text-sm md:text-base tracking-wide text-[#001F54] font-bold leading-tight whitespace-nowrap">
-                {event?.profile?.honoreeName || "Dannia Carolina"}
-              </span>
-              <span className="text-[10px] md:text-[11px] uppercase tracking-[0.15em] text-[#4B5B76] font-medium leading-tight whitespace-nowrap">
-                Mis XV Años <span className="hidden sm:inline">• Gala 2026</span>
-              </span>
-            </div>
-          </div>
-
-          {/* Desktop Section Nav (centered, hidden on mobile) */}
-          <PublicDesktopNav />
-
-          {/* Right Actions */}
-          <div className="flex items-center gap-2 shrink-0">
-            {/* App switcher: Invitación, En Vivo, Admin, Recuerdos (visible únicamente para el Administrador) */}
-            {isAdmin && (
-              <div className="hidden md:block">
-                <TopExperienceNav isAdmin={true} />
-              </div>
-            )}
-
-            {/* Pase Digital CTA — visible on all screens */}
-            <DigitalPassModal
-              initialCode={identifiedGuest?.invitationCode || "VIP-DC-001"}
-              initialGuest={identifiedGuest}
-            />
-          </div>
-        </div>
-      </header>
-
-      {/* Mode Switcher — mobile/tablet only (visible únicamente para Administrador) */}
-      {isAdmin && <MobileModeSwitcher isAdmin={true} />}
+      {/* 1. HEADER DEVFLOW EVENTS */}
+      <DevFlowNavbar identifiedGuest={identifiedGuest} />
 
       {/* 2. MAIN BODY */}
-      {/* pt: 64px header (+ 36px mode bar solo si es admin en móvil) = 100px; 72px en desktop */}
-      <main className={`w-full ${isAdmin ? "pt-[100px] md:pt-[72px]" : "pt-[68px] md:pt-[72px]"} flex-1 pb-20 lg:pb-0`} id="inicio">
+      <main className="w-full pt-16 lg:pt-[108px] flex-1 pb-20 lg:pb-0" id="inicio">
         {/* Dynamic Event Phase Banner */}
         {event?.phase === "live" && (
           <div className="w-full max-w-[1280px] mx-auto px-4 md:px-8 pt-4">
@@ -297,7 +249,7 @@ export default function HomeView() {
               <span className="h-px w-8 md:w-14 bg-[#D4AF37]" />
             </div>
 
-            <h1 className="font-headline text-3xl sm:text-5xl md:text-7xl text-[#001F54] tracking-tight font-bold uppercase mb-2 leading-none">
+            <h1 className="font-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[#001F54] tracking-tight font-bold uppercase mb-2 leading-[1.08] max-w-full text-balance break-words px-2">
               {event?.profile?.honoreeName || "Dannia Carolina"}
             </h1>
 

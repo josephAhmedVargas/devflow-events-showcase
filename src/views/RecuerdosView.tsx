@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { DevFlowNavbar } from "@/components/showcase/DevFlowNavbar";
 import { TopExperienceNav } from "@/components/shared/TopExperienceNav";
 import {
   RecuerdosInteractiveView,
@@ -82,43 +83,11 @@ export default function RecuerdosView() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFD] text-[#0D1829] flex flex-col selection:bg-[#0552AC] selection:text-white">
-      {/* Fixed Top Shell Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 material-bar">
-        <div className="h-20 w-full max-w-[1360px] mx-auto px-4 md:px-8 flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#0552AC] to-[#001F54] flex items-center justify-center text-[#D4AF37] ring-2 ring-[#D4AF37]/30 shadow-xs">
-              <span className="font-cinzel text-base font-bold tracking-wider">DC</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-headline font-bold text-base text-[#0D1829] tracking-tight">
-                D&apos;CAROL
-              </span>
-              <span className="text-[10px] font-semibold tracking-wider text-[#D4AF37] uppercase font-cinzel">
-                Archivo de Gala
-              </span>
-            </div>
-          </Link>
-
-          {isAdmin && (
-            <div className="hidden md:flex items-center">
-              <TopExperienceNav isAdmin={true} />
-            </div>
-          )}
-
-          <Link
-            href="/"
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-xs font-semibold"
-          >
-            <span className="material-symbols-outlined text-[16px] text-[#0552AC]">
-              arrow_back
-            </span>
-            <span>Inicio</span>
-          </Link>
-        </div>
-      </header>
+      {/* Header DevFlow Events */}
+      <DevFlowNavbar showSectionNav={false} />
 
       {/* Main Content Area */}
-      <main className="w-full pt-28 pb-20 flex-1 max-w-[1240px] mx-auto px-4 md:px-8 flex flex-col gap-10">
+      <main className="w-full pt-24 pb-20 flex-1 max-w-[1240px] mx-auto px-4 md:px-8 flex flex-col gap-10">
         {/* Mobile Nav Bar */}
         {isAdmin && (
           <div className="md:hidden flex justify-center py-1">

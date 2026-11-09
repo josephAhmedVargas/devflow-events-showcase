@@ -107,7 +107,7 @@ export function AdminSidebar({
       )}
 
       <aside
-        className={`fixed left-0 top-0 h-full w-72 bg-white border-r border-slate-200/80 z-50 flex flex-col pt-5 pb-5 shadow-lg lg:shadow-xs select-none transition-transform duration-500 ease-[var(--ease-spring-sheet)] ${
+        className={`fixed left-0 top-0 h-full w-72 bg-white border-r border-slate-200/80 z-50 flex flex-col pt-5 pb-10 lg:pb-8 shadow-lg lg:shadow-xs select-none transition-transform duration-500 ease-[var(--ease-spring-sheet)] ${
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >

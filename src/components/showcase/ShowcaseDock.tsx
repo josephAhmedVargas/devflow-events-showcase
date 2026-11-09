@@ -56,7 +56,7 @@ export function ShowcaseDock() {
         <div
           role="dialog"
           aria-label="Demo DevFlow Events"
-          className="absolute bottom-[calc(100%+10px)] right-0 w-[min(340px,calc(100vw-24px))] origin-bottom-right animate-in fade-in zoom-in-95 duration-300 rounded-3xl bg-[#0B1220]/88 text-white backdrop-blur-2xl backdrop-saturate-150 shadow-[0_24px_64px_-12px_rgba(0,0,0,0.45)] ring-1 ring-white/10 overflow-hidden"
+          className="absolute bottom-[calc(100%+10px)] right-0 w-[min(340px,calc(100vw-24px))] max-h-[calc(100dvh-130px)] sm:max-h-[calc(100dvh-120px)] flex flex-col origin-bottom-right animate-in fade-in zoom-in-95 duration-300 rounded-3xl bg-[#0B1220]/92 text-white backdrop-blur-2xl backdrop-saturate-150 shadow-[0_24px_64px_-12px_rgba(0,0,0,0.45)] ring-1 ring-white/10 overflow-y-auto overscroll-contain no-scrollbar"
         >
           <div className="px-5 pt-5 pb-4">
             <div className="flex items-center gap-2">

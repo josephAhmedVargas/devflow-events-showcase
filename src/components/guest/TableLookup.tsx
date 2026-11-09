@@ -39,6 +39,16 @@ export function TableLookup({ initialGuest = null }: TableLookupProps) {
     }
   }, [initialGuest]);
 
+  const selectAndFocusPass = (pass: SearchResult) => {
+    setActivePass(pass);
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      const el = document.getElementById("active-pass-card");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+  };
+
   const handleSearch = async (searchQuery: string) => {
     if (!searchQuery.trim()) return;
     setLoading(true);
@@ -49,7 +59,7 @@ export function TableLookup({ initialGuest = null }: TableLookupProps) {
       const list = data.results || [];
       setResults(list);
       if (list.length > 0) {
-        setActivePass(list[0]);
+        selectAndFocusPass(list[0]);
       }
     } catch {
       setResults([]);
@@ -149,7 +159,7 @@ export function TableLookup({ initialGuest = null }: TableLookupProps) {
                     return (
                       <div
                         key={r.guestId}
-                        onClick={() => setActivePass(r)}
+                        onClick={() => selectAndFocusPass(r)}
                         className={`p-3.5 rounded-2xl border transition cursor-pointer flex items-center justify-between gap-3 ${
                           isSelected
                             ? "bg-[#E8F0FE] border-[#0552AC] shadow-sm ring-1 ring-[#0552AC]"
@@ -194,7 +204,10 @@ export function TableLookup({ initialGuest = null }: TableLookupProps) {
         </div>
 
         {/* Columna Derecha: Tarjeta / Widget del Pase Digital VIP */}
-        <div className="lg:col-span-6 bg-gradient-to-br from-[#001F54] via-[#0552AC] to-[#001F54] text-white p-6 md:p-8 rounded-3xl shadow-2xl border-2 border-[#D4AF37]/40 relative overflow-hidden flex flex-col justify-between min-h-[380px]">
+        <div
+          id="active-pass-card"
+          className="lg:col-span-6 bg-gradient-to-br from-[#001F54] via-[#0552AC] to-[#001F54] text-white p-6 md:p-8 rounded-3xl shadow-2xl border-2 border-[#D4AF37]/40 relative overflow-hidden flex flex-col justify-between min-h-[380px]"
+        >
           <div>
             <div className="flex items-center justify-between mb-4 border-b border-[#D4AF37]/30 pb-3">
               <div className="flex items-center gap-2">

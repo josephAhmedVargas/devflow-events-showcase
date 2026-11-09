@@ -58,6 +58,7 @@ export function MobileBottomNav({ onOpenPass }: MobileBottomNavProps) {
     }
     const passBtns = document.querySelectorAll("button");
     for (const btn of passBtns) {
+      if (btn.closest("nav[aria-label='Navegación Móvil Rápida']")) continue;
       const aria = btn.getAttribute("aria-label") || "";
       const text = btn.textContent || "";
       if (aria.includes("Pase Digital") || text.includes("Mi Pase")) {
