@@ -630,12 +630,16 @@ export default function HomeView() {
         </section>
       </main>
 
-      {/* FOOTER */}
-      <footer className="w-full bg-[#001F54] text-white py-8 md:py-12 border-t border-[#D4AF37]/30">
-        <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex flex-col items-center text-center">
-          <div className="w-14 h-14 rounded-full bg-white/10 p-1 ring-1 ring-[#D4AF37]/40 flex items-center justify-center mb-4">
+            {/* FOOTER DE GALA & DEVFLOW EVENTS */}
+      <footer className="w-full bg-[#001F54] text-white pt-12 md:pt-16 pb-32 sm:pb-36 md:pb-16 border-t border-[#D4AF37]/30 relative overflow-hidden">
+        {/* Glow de ambientación superior */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[120px] bg-gradient-to-b from-[#0552AC]/20 to-transparent blur-3xl pointer-events-none" />
+
+        <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex flex-col items-center text-center relative z-10">
+          {/* Sello de Gala en cápsula blanca con anillo dorado */}
+          <div className="relative w-16 h-16 rounded-2xl bg-white p-2 shadow-lg shadow-black/25 ring-2 ring-[#D4AF37]/60 flex items-center justify-center mb-5 transition-transform hover:scale-105">
             <img
-              alt="D'CAROL Logo"
+              alt="D'CAROL Logo Oficial Dannia Carolina"
               className="w-full h-full object-contain"
               src={
                 event?.branding?.logoUrl ||
@@ -643,48 +647,77 @@ export default function HomeView() {
               }
             />
           </div>
-          <span className="font-cinzel text-lg tracking-widest text-[#D4AF37] font-bold">
-            D'CAROL • MIS XV 2026
+
+          <span className="font-cinzel text-lg sm:text-xl tracking-[0.25em] text-[#D4AF37] font-bold leading-tight">
+            D&apos;CAROL • MIS XV 2026
           </span>
-          <span className="text-xs uppercase tracking-[0.2em] text-white/70 mt-1">
+          <span className="text-xs uppercase tracking-[0.2em] text-white/80 font-medium mt-1">
             Dannia Carolina Mendoza • Hotel Holiday Inn Managua
           </span>
-          <p className="text-xs text-white/50 mt-4 max-w-md">
-            Agradecemos con todo el corazón su compañía, cariño y oraciones en este día tan significativo para nuestra
-            familia.
-          </p>
-          <div className="w-16 h-[1px] bg-[#D4AF37]/30 my-6"></div>
 
-          {/* Quick Administration Links */}
-          <div className="flex items-center justify-center gap-3 sm:gap-4 text-xs text-white/50 mb-3 flex-wrap">
+          <p className="font-serif italic text-sm text-slate-300/90 mt-4 max-w-lg leading-relaxed">
+            &ldquo;Agradecemos con todo el corazón su compañía, cariño y oraciones en este día tan significativo para nuestra familia.&rdquo;
+          </p>
+
+          {/* Divisor ornamental dorado */}
+          <div className="flex items-center gap-3 my-6">
+            <span className="w-12 h-px bg-[#D4AF37]/40" />
+            <span className="material-symbols-outlined text-[15px] text-[#D4AF37]">auto_awesome</span>
+            <span className="w-12 h-px bg-[#D4AF37]/40" />
+          </div>
+
+          {/* Enlaces de Ecosistema / Centro de Mando */}
+          <div className="flex items-center justify-center gap-2 sm:gap-3 text-xs mb-6 flex-wrap">
             <Link
               href="/admin"
-              className="hover:text-[#D4AF37] transition-colors flex items-center gap-1 font-semibold"
+              className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/12 border border-white/10 hover:border-[#D4AF37]/40 text-white/80 hover:text-[#D4AF37] transition-all flex items-center gap-1.5 font-semibold text-xs shadow-xs"
             >
-              <span className="material-symbols-outlined text-[14px] text-[#D4AF37]">dashboard_customize</span>
-              <span>Centro de Mando (Admin)</span>
+              <span className="material-symbols-outlined text-[15px] text-[#D4AF37]">dashboard</span>
+              <span>Centro de Mando</span>
             </Link>
-            <span>•</span>
+            <Link
+              href="/live"
+              className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/12 border border-white/10 hover:border-rose-400/40 text-white/80 hover:text-white transition-all flex items-center gap-1.5 text-xs font-medium shadow-xs"
+            >
+              <span className="material-symbols-outlined text-[15px] text-rose-400">live_tv</span>
+              <span>Muro en Vivo</span>
+            </Link>
+            <Link
+              href="/recuerdos"
+              className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/12 border border-white/10 hover:border-sky-400/40 text-white/80 hover:text-white transition-all flex items-center gap-1.5 text-xs font-medium shadow-xs"
+            >
+              <span className="material-symbols-outlined text-[15px] text-sky-400">auto_stories</span>
+              <span>Recuerdos</span>
+            </Link>
             <Link
               href="/admin/etapas"
-              className="hover:text-[#D4AF37] transition-colors flex items-center gap-1"
+              className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/12 border border-white/10 hover:border-amber-400/40 text-white/70 hover:text-white transition-all flex items-center gap-1.5 text-xs font-medium shadow-xs"
             >
-              <span className="material-symbols-outlined text-[14px]">photo_library</span>
+              <span className="material-symbols-outlined text-[15px] text-amber-300">photo_library</span>
               <span>Módulo Planner</span>
-            </Link>
-            <span>•</span>
-            <Link
-              href="/login"
-              className="hover:text-[#D4AF37] transition-colors flex items-center gap-1"
-            >
-              <span className="material-symbols-outlined text-[14px]">lock</span>
-              <span>Iniciar Sesión</span>
             </Link>
           </div>
 
-          <span className="text-[11px] text-white/40 tracking-wider">
-            © 2026 D'CAROL. Todos los derechos reservados.
-          </span>
+          {/* Firma DevFlow & Copyright */}
+          <div className="flex flex-col items-center gap-2 text-center">
+            <p className="text-[11px] text-white/60 flex items-center justify-center gap-1.5 flex-wrap">
+              <span>Diseñado y potenciado por</span>
+              <a
+                href="https://www.devflow.lat"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-white hover:text-[#D4AF37] transition inline-flex items-center gap-1 group"
+              >
+                <span>DevFlow Events</span>
+                <span className="text-[9px] uppercase px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold border border-emerald-500/30">
+                  Gala Tech
+                </span>
+              </a>
+            </p>
+            <span className="text-[10px] text-white/40 tracking-wider">
+              © 2026 D&apos;CAROL · Todos los derechos reservados
+            </span>
+          </div>
         </div>
       </footer>
 
