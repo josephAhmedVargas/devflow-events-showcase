@@ -8,7 +8,7 @@ import { DigitalPassModal } from "@/components/guest/DigitalPassModal";
 import { resetDb, setAdminSession } from "@/demo/db";
 
 const WHATSAPP_URL =
-  "https://wa.me/50588888888?text=Hola%20DevFlow,%20estoy%20probando%20la%20demo%20de%20DevFlow%20Events%20y%20quiero%20cotizar%20para%20un%20evento.";
+  "https://wa.me/50576922528?text=Hola%2C%20estuve%20explorando%20la%20plataforma%20de%20DevFlow%20Events%20y%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20para%20cotizar%20la%20tecnolog%C3%ADa%20de%20un%20evento.";
 
 const DEVFLOW_LOGO_URL =
   "https://res.cloudinary.com/dzezhxhd2/image/upload/v1776909102/dental_flow_logo_mini_plcbg8.png";

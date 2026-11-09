@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { resetDb, setAdminSession, useIsAdmin } from "@/demo/db";
 
 const WHATSAPP_URL =
-  "https://wa.me/50588888888?text=Hola%20DevFlow,%20prob%C3%A9%20la%20demo%20de%20DevFlow%20Events%20y%20quiero%20cotizar%20para%20mi%20evento.";
+  "https://wa.me/50576922528?text=Hola%2C%20estuve%20explorando%20la%20plataforma%20de%20DevFlow%20Events%20y%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20para%20cotizar%20la%20tecnolog%C3%ADa%20de%20un%20evento.";
 
 const MODULES = [
   { href: "/", label: "Invitación", hint: "Lo que recibe cada invitado", icon: "mail" },
