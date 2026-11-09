@@ -69,7 +69,7 @@ export default function VideoPage() {
             className="px-5 py-2.5 rounded-full bg-[#D4AF37] hover:bg-[#c29d2b] text-[#001F54] font-bold text-xs sm:text-sm shadow-lg shadow-[#D4AF37]/20 flex items-center gap-2 transition hover:scale-105"
           >
             <span className="material-symbols-outlined text-[18px]">download</span>
-            <span>Descargar Video MP4 (18.7 MB)</span>
+            <span>Descargar Video MP4 (21.2 MB)</span>
           </a>
 
           <a
