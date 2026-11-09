@@ -116,34 +116,31 @@ export function DevFlowNavbar({
     <>
       {/* ── HEADER PRINCIPAL DE DEVFLOW EVENTS ── */}
       <header className="fixed top-0 left-0 right-0 z-50 material-bar border-b border-slate-200/80 transition-all duration-300">
-        <div className="w-full max-w-[1440px] mx-auto h-16 md:h-[72px] px-3 sm:px-5 lg:px-8 flex items-center justify-between gap-2 md:gap-4">
+        <div className="w-full max-w-[1440px] mx-auto h-16 md:h-[72px] px-3.5 sm:px-5 lg:px-8 flex items-center justify-between gap-3">
           
-          {/* 1. BRAND IDENTITY */}
+          {/* 1. BRAND IDENTITY — Limpio, nítido y en una sola línea */}
           <Link
             href="/"
             className="flex items-center gap-2.5 sm:gap-3 group shrink-0 select-none"
             aria-label="DevFlow Events - Inicio"
           >
-            <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#001F54] via-[#0552AC] to-[#001F54] p-1.5 shadow-sm shadow-[#001F54]/20 ring-1 ring-[#D4AF37]/30 flex items-center justify-center transition-transform group-hover:scale-105 shrink-0">
+            {/* Logo oficial sobre cápsula blanca nítida */}
+            <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1.5 shadow-xs border border-slate-200/90 flex items-center justify-center transition-transform group-hover:scale-105 shrink-0">
               <img
                 src={DEVFLOW_LOGO_URL}
                 alt="DevFlow Events Logo Oficial"
-                className="w-full h-full object-contain filter drop-shadow-xs"
+                className="w-full h-full object-contain"
               />
             </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-bold text-[15px] sm:text-[17px] tracking-tight text-[#001F54] font-body leading-none">
-                  DevFlow <span className="text-[#0552AC]">Events</span>
-                </span>
-                <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-700 text-[10px] font-semibold tracking-wide">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Demo en Vivo
-                </span>
-              </div>
-              <span className="text-[10px] sm:text-[11px] font-medium text-[#4B5B76] leading-tight mt-0.5 flex items-center gap-1">
-                <span className="font-cinzel font-bold text-[#D4AF37]">Mis XV</span>
-                <span className="hidden xs:inline">· Gala Dannia Carolina</span>
+            
+            {/* Nombre de Marca y Badge de Estatus */}
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-[16px] sm:text-[18px] tracking-tight text-[#001F54] font-body leading-none flex items-center">
+                DevFlow<span className="text-[#0552AC] font-semibold ml-1">Events</span>
+              </span>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-700 text-[10px] font-semibold tracking-wide">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Demo
               </span>
             </div>
           </Link>
@@ -188,19 +185,30 @@ export function DevFlowNavbar({
           </nav>
 
           {/* 3. RIGHT ACTION CLUSTER */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-            {/* Pase VIP Modal Trigger */}
-            <DigitalPassModal
-              initialCode={identifiedGuest?.invitationCode || "VIP-DC-001"}
-              initialGuest={identifiedGuest}
-            />
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+            {/* Pase VIP Modal Trigger — Visible en Desktop (en móvil ya está en la barra inferior) */}
+            <div className="hidden md:block">
+              <DigitalPassModal
+                initialCode={identifiedGuest?.invitationCode || "VIP-DC-001"}
+                initialGuest={identifiedGuest}
+              />
+            </div>
+            {/* Hidden hook para que MobileBottomNav pueda disparar el modal con .click() */}
+            <div className="md:hidden">
+              <span className="sr-only">
+                <DigitalPassModal
+                  initialCode={identifiedGuest?.invitationCode || "VIP-DC-001"}
+                  initialGuest={identifiedGuest}
+                />
+              </span>
+            </div>
 
-            {/* Cotizar por WhatsApp CTA */}
+            {/* Cotizar por WhatsApp CTA (Desktop) */}
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-full bg-[#001F54] hover:bg-[#0552AC] text-white text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 border border-[#D4AF37]/30 select-none"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#001F54] hover:bg-[#0552AC] text-white text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 border border-[#D4AF37]/30 select-none"
             >
               <svg
                 className="w-3.5 h-3.5 fill-emerald-400"
@@ -212,7 +220,20 @@ export function DevFlowNavbar({
               <span>Cotizar</span>
             </a>
 
-            {/* Discrete Reset Demo Button */}
+            {/* Botón WhatsApp compacto para Móvil */}
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Cotizar por WhatsApp"
+              className="sm:hidden w-9 h-9 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200/80 flex items-center justify-center transition active:scale-95 shrink-0"
+            >
+              <svg className="w-4 h-4 fill-emerald-600" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.529 1.836.814 2.791.814 3.181 0 5.767-2.587 5.767-5.766 0-3.18-2.586-5.766-5.767-5.766zm9.969 5.766c0 5.503-4.477 9.98-9.97 9.98-1.748 0-3.385-.45-4.819-1.236l-5.211 1.366 1.391-5.085c-.888-1.488-1.391-3.228-1.391-5.087 0-5.504 4.477-9.98 9.97-9.98 5.492 0 9.97 4.476 9.97 9.98z" />
+              </svg>
+            </a>
+
+            {/* Discrete Reset Demo Button (Desktop) */}
             <button
               type="button"
               onClick={handleResetData}
@@ -228,7 +249,7 @@ export function DevFlowNavbar({
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú de navegación"}
-              className="md:hidden w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-[#001F54] flex items-center justify-center transition active:scale-95"
+              className="md:hidden w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-[#001F54] flex items-center justify-center transition active:scale-95 shrink-0"
             >
               <span className="material-symbols-outlined text-[20px]">
                 {mobileMenuOpen ? "close" : "menu"}
@@ -273,7 +294,7 @@ export function DevFlowNavbar({
 
       {/* ── MOBILE DRAWER / SHEET ── */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 md:hidden animate-in fade-in duration-200">
           {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/40 backdrop-blur-xs"

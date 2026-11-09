@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { installDemoApi } from "./api";
-import { ShowcaseDock } from "@/components/showcase/ShowcaseDock";
 
 // Se instala al evaluar el módulo, antes de que cualquier componente haga fetch.
 installDemoApi();
@@ -34,10 +33,5 @@ export function DemoRuntime({ children }: { children: React.ReactNode }) {
     );
   }
 
-  return (
-    <>
-            {children}
-      <ShowcaseDock />
-    </>
-  );
+  return <>{children}</>;
 }
